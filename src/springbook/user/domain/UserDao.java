@@ -6,10 +6,14 @@ import java.sql.*;
  * Created by seohyowon on 2014. 6. 10..
  */
 public class UserDao {
-    public void add(User user) throws ClassNotFoundException, SQLException {
-        Class.forName("org.mariadb.jdbc.Driver");
-        Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3306/springbook", "spring", "book");
+    private ConnectionMaker connectionMaker;
 
+    public UserDao(ConnectionMaker connectionMaker) {
+        connectionMaker = connectionMaker;
+    }
+
+    public void add(User user) throws ClassNotFoundException, SQLException {
+        Connection c = connectionMaker.makeConnection();
         PreparedStatement ps = c.prepareStatement("insert into users (id,name,password) values (?,?,?)");
 
         ps.setString(1, user.getId());
@@ -24,8 +28,7 @@ public class UserDao {
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException {
-        Class.forName("org.mariadb.jdbc.Driver");
-        Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3306/springbook", "spring", "book");
+        Connection c = connectionMaker.makeConnection();
 
         PreparedStatement ps = c.prepareStatement( "select * from users where id = ?");
 
@@ -46,4 +49,6 @@ public class UserDao {
 
         return user;
     }
+
+
 }
