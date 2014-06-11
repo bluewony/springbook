@@ -11,7 +11,7 @@ public class DConnectionMaker implements ConnectionMaker {
 
     public Connection makeConnection() throws ClassNotFoundException, SQLException {
         Class.forName("org.mariadb.jdbc.Driver");
-        Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3306/springbook", "spring", "book");
+        Connection c = DriverManager.getConnection("jdbc:mariadb://onmuri.iptime.org:3306/springbook", "spring", "book");
         return c;
     }
 }
