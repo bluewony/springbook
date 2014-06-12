@@ -1,21 +1,24 @@
 package springbook.user.domain;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import java.sql.SQLException;
 
 /**
  * Created by seohyowon on 2014. 6. 10..
  */
-public class UserTest {
+public class UserDaoTest {
 
     public static void main(String[]args) throws ClassNotFoundException, SQLException {
-        ConnectionMaker connectionMaker = new DConnectionMaker();
 
-        UserDao dao = new UserDao(connectionMaker);
+        ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+        UserDao dao = context.getBean("userDao", UserDao.class);
 
         User user = new User();
-        user.setId("whiteship");
-        user.setName("백기선");
-        user.setPassword("married");
+        user.setId("shalom8203");
+        user.setName("백승미");
+        user.setPassword("1234");
 
         dao.add(user);
 
